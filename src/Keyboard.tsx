@@ -34,12 +34,14 @@ type Props = {
   activeLetter: string[];
   inactiveLetters: string[];
   addGuessedLetter: (letter: string) => void;
+  disabled?: boolean; // optional prop
 };
 
 const Keyboard = ({
   activeLetter,
   inactiveLetters,
   addGuessedLetter,
+  disabled = false,
 }: Props) => {
   return (
     <div
@@ -57,7 +59,7 @@ const Keyboard = ({
           <button
             onClick={() => addGuessedLetter(key)}
             key={key}
-            disabled={isActive || isInctive}
+            disabled={isActive || isInctive || disabled}
             className={`${
               isActive
                 ? letterClasses + "bg-[#6464e0] cursor-not-allowed"

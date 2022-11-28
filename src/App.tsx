@@ -16,9 +16,14 @@ function App() {
     (letter) => !wordToGuess.includes(letter)
   );
 
+  const isLoser = incorrectLetters.length >= 6;
+  const isWinner = wordToGuess
+    .split("")
+    .every((letter) => guessedLetters.includes(letter));
+
   const addGuessedLetter = useCallback(
     (letter: string) => {
-      if (guessedLetters.includes(letter)) return;
+      if (guessedLetters.includes(letter) || isWinner || isLoser) return;
 
       setGuessedLetters((currentLetters) => [...currentLetters, letter]);
     },
@@ -40,14 +45,22 @@ function App() {
     return () => {
       document.removeEventListener("keypress", handler);
     };
-  }, [guessedLetters]);
+  }, [guessedLetters, isWinner, isLoser]);
 
   return (
     <div className="max-w-[800px] flex flex-col space-x-4 mx-auto items-center">
-      <div className="text-2lg text-center">Lose Win</div>
+      <div className="text-4xl text-center mb-10">
+        {isWinner && "Winner!"}
+        {isLoser && "You lost!"}
+      </div>
       <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
-      <HangmanWord guessedLetters={guessedLetters} wordToGuess={wordToGuess} />
+      <HangmanWord
+        reveal={isLoser}
+        guessedLetters={guessedLetters}
+        wordToGuess={wordToGuess}
+      />
       <Keyboard
+        disabled={isWinner || isLoser}
         activeLetter={guessedLetters.filter((letter) =>
           wordToGuess.includes(letter)
         )}
