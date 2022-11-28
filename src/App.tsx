@@ -12,10 +12,14 @@ function App() {
 
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
+  const incorrectLetters = guessedLetters.filter(
+    (letter) => !wordToGuess.includes(letter)
+  );
+
   return (
     <div className="max-w-[800px] flex flex-col space-x-4 mx-auto items-center">
       <div className="text-2lg text-center">Lose Win</div>
-      <HangmanDrawing />
+      <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
       <HangmanWord />
       <Keyboard />
     </div>
