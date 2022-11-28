@@ -27,7 +27,20 @@ const KEYS = [
   "z",
 ];
 
-const Keyboard = () => {
+const letterClasses =
+  "w-full border-2 border-black aspect-square text-2xl uppercase p-3 font-bold cursor-pointer text-black hover:bg-[#6464e0] focus:bg-[#6464e0] ";
+
+type Props = {
+  activeLetter: string[];
+  inactiveLetters: string[];
+  addGuessedLetter: (letter: string) => void;
+};
+
+const Keyboard = ({
+  activeLetter,
+  inactiveLetters,
+  addGuessedLetter,
+}: Props) => {
   return (
     <div
       style={{
@@ -37,14 +50,21 @@ const Keyboard = () => {
         alignSelf: "stretch",
       }}
     >
-      {KEYS.map((key) => (
-        <button
-          key={key}
-          className="w-full border-2 border-black aspect-square text-2xl uppercase p-3 font-bold cursor-pointer text-black hover:bg-[#6464e0] focus:bg-[#6464e0]"
-        >
-          {key}
-        </button>
-      ))}
+      {KEYS.map((key) => {
+        const isActive = activeLetter.includes(key);
+        const isInctive = inactiveLetters.includes(key);
+        return (
+          <button
+            onClick={() => addGuessedLetter(key)}
+            key={key}
+            className={`${
+              isActive ? letterClasses + "bg-[#6464e0]" : letterClasses
+            } ${isInctive ? "opacity-10" : letterClasses}`}
+          >
+            {key}
+          </button>
+        );
+      })}
     </div>
   );
 };
