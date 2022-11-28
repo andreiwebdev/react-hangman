@@ -19,7 +19,7 @@ const LEFT_LEG = (
 
 const HangmanDrawing = () => {
   return (
-    <div className="relative">
+    <div className="relative mb-10">
       {HEAD}
       {BODY}
       {RIGHT_ARM}

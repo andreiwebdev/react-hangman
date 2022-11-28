@@ -3,7 +3,7 @@ const HangmanWord = () => {
   const guessedLetters = ["e", "t"];
 
   return (
-    <div className="flex space-x-2 text-8xl font-bold uppercase font-mono">
+    <div className="flex space-x-2 text-8xl font-bold uppercase font-mono mb-10">
       {word.split("").map((letter, index) => (
         <span key={index} className="border-b-4 border-black">
           <span
