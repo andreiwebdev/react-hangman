@@ -57,9 +57,12 @@ const Keyboard = ({
           <button
             onClick={() => addGuessedLetter(key)}
             key={key}
+            disabled={isActive || isInctive}
             className={`${
-              isActive ? letterClasses + "bg-[#6464e0]" : letterClasses
-            } ${isInctive ? "opacity-10" : letterClasses}`}
+              isActive
+                ? letterClasses + "bg-[#6464e0] cursor-not-allowed"
+                : letterClasses
+            } ${isInctive ? "opacity-10 cursor-not-allowed" : letterClasses}`}
           >
             {key}
           </button>
